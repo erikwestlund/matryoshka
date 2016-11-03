@@ -11,7 +11,7 @@
         {
             "name": "Erik Westlund",
             "email": "edbwestlund@gmail.com"
-        },
+        }
     ],
     "require": {
         "illuminate/support": "^5.3"
