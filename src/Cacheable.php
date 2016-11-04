@@ -19,6 +19,6 @@ trait Cacheable
             $this->updated_at->timestamp
         );
 
-        return $page ? $key '-pg:' . $page : $key;
+        return $page ? $key . '-pg:' . $page : $key;
     }
 }
