@@ -75,6 +75,18 @@ class BladeDirective
             return $item->getCacheKey();
         }
     
+        // If a paginated object, return a key consisting of the model type, 
+        // the page, items per page, and a hash of the items in the page.
+        if($item instanceof \Illuminate\Pagination\LengthAwarePaginator) {
+            $items = collect($item->items());
+            $model = get_class($items->first());
+            $per_page = 'per:' . $item->perPage();
+            $page = 'pg:' . $item->currentPage();
+            $hash = md5($items);
+
+            return implode('-', [$model, $page, $per_page, $hash]);
+        }
+
         // If we're dealing with a collection, we'll 
         // use a hashed version of its contents.
         if ($item instanceof \Illuminate\Support\Collection) {
@@ -83,4 +95,4 @@ class BladeDirective
     
         throw new Exception('Could not determine an appropriate cache key.');
     }
-}
+}   
